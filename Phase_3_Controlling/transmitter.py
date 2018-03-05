@@ -24,11 +24,11 @@ def Controller_DeadZoneCancellation(rawData):
         rawData = 0
     return rawData
 
-def Range_Limiter(val,min,max):
-    if val > max:
-        val = max
-    elif val < min:
-        val = min
+def Range_Limiter(val,range_min,range_max):
+    if val > range_max:
+        val = range_max
+    elif val < range_min:
+        val = range_min
     return val
 
 def Controller_ReadAndSend():
