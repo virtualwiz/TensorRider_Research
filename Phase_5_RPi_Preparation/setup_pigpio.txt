@@ -1,0 +1,8 @@
+mkdir gpio
+cd gpio
+
+https://pypi.python.org/pypi/RPi.GPIO
+
+tar zxvf Rxxxxx.tar.gz
+cd
+sudo python setup.py install

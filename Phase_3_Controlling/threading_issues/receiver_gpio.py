@@ -1,3 +1,4 @@
+import RPi.GPIO as io
 import socket
 import threading
 
@@ -5,6 +6,17 @@ dataAcquireInterval = 0.1
 addr=('',51423)
 s=socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
 s.bind(addr)
+
+MOTOR_IO_LEFT = 13
+MOTOR_IO_RIGHT = 15
+MOTOR_PWM_FREQUENCY = 640
+
+io.setmode(io.BOARD)
+io.setup(MOTOR_IO_LEFT, io.OUT)
+io.setup(MOTOR_IO_RIGHT, io.OUT)
+MotorPwmL = io.PWM(MOTOR_IO_LEFT, MOTOR_PWM_FREQUENCY)
+MotorPwmR = io.PWM(MOTOR_IO_RIGHT, MOTOR_PWM_FREQUENCY)
+
 
 def Range_Limiter(val,range_min,range_max):
     if val > range_max:
@@ -25,9 +37,16 @@ class Car:
         self.pwmDutyRight = self.speed - (self.direction * (self.speed / 100))
         self.pwmDutyLeft = Range_Limiter(self.pwmDutyLeft, 0, 100)
         self.pwmDutyRight = Range_Limiter(self.pwmDutyRight, 0, 100)
-        print(self.pwmDutyLeft, self.pwmDutyRight)
+        # print(self.pwmDutyLeft, self.pwmDutyRight)
+        MotorPwmL.ChangeDutyCycle(self.pwmDutyLeft)
+        MotorPwmR.ChangeDutyCycle(self.pwmDutyRight)
+    
+    def initMotor(self):
+        MotorPwmL.start(0)
+        MotorPwmR.start(0)
 
 rider = Car()
+rider.initMotor()
 
 def Controller_ReceiveAndWrite():
     global controlThread
