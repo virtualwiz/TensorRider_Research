@@ -9,11 +9,12 @@ s.bind(addr)
 
 MOTOR_IO_LEFT = 13
 MOTOR_IO_RIGHT = 15
-MOTOR_PWM_FREQUENCY = 640
+MOTOR_PWM_FREQUENCY = 120
 
 BCN_IO_RED = 12
 BCN_IO_GREEN = 11
 BCN_LIGHT_PERIOD = 0.05
+BCN_LIGHT_WAIT = 0.3
 BCN_INTERVAL = 3
 
 bcnStatus = 0
@@ -45,19 +46,17 @@ def flashBeacon():
         io.output(BCN_IO_GREEN,False)
     elif bcnStatus == 2:
         io.output(BCN_IO_RED,True)
+	io.output(BCN_IO_GREEN,True)
         sleep(BCN_LIGHT_PERIOD)
         io.output(BCN_IO_RED,False)
+	io.output(BCN_IO_GREEN,False)
+        sleep(BCN_LIGHT_WAIT)
+        io.output(BCN_IO_RED,True)
         sleep(BCN_LIGHT_PERIOD)
-        io.output(BCN_IO_GREEN,True)
-        sleep(BCN_LIGHT_PERIOD)
-        io.output(BCN_IO_GREEN,False)
+        io.output(BCN_IO_RED,False)
     elif bcnStatus == 3:
         io.output(BCN_IO_RED,True)
-        sleep(BCN_LIGHT_PERIOD)
-        io.output(BCN_IO_RED,False)
-        sleep(BCN_LIGHT_PERIOD)
-        io.output(BCN_IO_RED,True)
-        sleep(BCN_LIGHT_PERIOD)
+        sleep(BCN_LIGHT_WAIT)
         io.output(BCN_IO_RED,False)
 
 def setBeaconStatus(status):

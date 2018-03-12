@@ -8,7 +8,6 @@ import string
 # CONFIG
 addr=('192.168.73.73',51423)
 deadzone = 0.1
-controllerReadInterval = 0.1
 # END OF CONFIG
 
 s=socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
@@ -16,7 +15,7 @@ s=socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
 class Car:
     def __init__(self):
         self.speed = 0
-        self.acceleration = -5
+        self.acceleration = -2
         self.direction = 0
         self.differential = 40
 
