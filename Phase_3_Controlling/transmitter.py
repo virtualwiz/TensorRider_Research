@@ -40,7 +40,22 @@ def Controller_ReadAndSend():
         rider_local.speed = Range_Limiter(rider_local.speed, 0, 100)
         rider_local.direction = stickVal_Dir * rider_local.differential
 
+        # if controller.get_button(9) == 1:
+        #     print("Recording Triggered!")
+        #     temp = rider_local.speed
+        #     rider_local.speed = -1 # As a signal to start data recording
+        #     msgCtrl_Udp = str(rider_local.speed) + "," + str(rider_local.direction)
+        #     s.sendto(msgCtrl_Udp.encode('utf-8'), addr)
+        #     rider_local.speed = temp
+        
+        if controller.get_button(9) == 1:
+            s.sendto("R".encode('utf-8'), addr)
+            print("Recording Triggered!")
+            sleep(0.5) #To prevent data congestion
+
+            
         if controller.get_button(6) + controller.get_button(7) == 2:
+            print("Brake!")
             rider_local.speed = 0 #Emergency Stop
 
         if controller.get_button(8) == 1:
