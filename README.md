@@ -1,1 +1,4 @@
-# TensorRider_Self_Driving_Car
+
+<p align="center">
+<img width="600" src="Image/TensorRider.jpg"/>
+</p>
