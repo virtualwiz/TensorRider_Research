@@ -37,7 +37,7 @@ def Controller_ReadAndSend():
         stickVal_Acc = Controller_DeadZoneCancellation(controller.get_axis(1))
         stickVal_Dir = Controller_DeadZoneCancellation(controller.get_axis(2))
         rider_local.speed += rider_local.acceleration * stickVal_Acc
-        rider_local.speed = Range_Limiter(rider_local.speed, 0, 100)
+        rider_local.speed = Range_Limiter(rider_local.speed, -20, 100)
         rider_local.direction = stickVal_Dir * rider_local.differential
 
         # if controller.get_button(9) == 1:
@@ -57,6 +57,10 @@ def Controller_ReadAndSend():
         if controller.get_button(6) + controller.get_button(7) == 2:
             print("Brake!")
             rider_local.speed = 0 #Emergency Stop
+
+        if controller.get_button(4) + controller.get_button(5) == 2:
+            print("Train!")
+            rider_local.speed = 25 #Emergency Stop
 
         if controller.get_button(8) == 1:
             s.close()
