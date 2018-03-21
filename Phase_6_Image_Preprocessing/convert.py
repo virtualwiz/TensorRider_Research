@@ -28,13 +28,14 @@ for fileIndex in range(1, int(NUM_OF_IMAGES)+1):
     imageString = imageGrayScaled.tostring()
 
     direction = int(linecache.getline(r"./dataset/steer_log.txt", fileIndex))
-    
+    direction = int(direction / 6)
+
     example = tf.train.Example(features=tf.train.Features(feature={
         'image': _bytes_feature(imageString),
         'label': _int64_feature(direction)
     }))
 
+    print("Writing record " + "%0*d" %(6, fileIndex) + ".jpg " + "with label " + str(direction))
     tfWriter.write(example.SerializeToString())
-    print("Wrote record" + "%0*d" %(6, fileIndex) + ".jpg " + "with label " + str(direction))
 
 tfWriter.close()
