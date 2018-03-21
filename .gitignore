@@ -1,2 +1,4 @@
 ??????.jpg
-*.tfrecord
+*.tfrecords
+steer_log.txt
+

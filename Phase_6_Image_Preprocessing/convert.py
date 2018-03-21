@@ -1,5 +1,5 @@
 import numpy as np
-from skimage import io, color
+from skimage import io
 from matplotlib import pyplot as plt
 import linecache
 
@@ -21,14 +21,12 @@ tfWriter = tf.python_io.TFRecordWriter(tfrecords_filename)
 
 for fileIndex in range(1, int(NUM_OF_IMAGES)+1):
     image = io.imread("./dataset/" + "%0*d" %(6, fileIndex) + ".jpg")
-    imageGrayScaled = color.rgb2gray(image)
-    # io.imsave("./converted/" + "%0*d" %(6, fileIndex) + ".jpg" , imageGrayScaled)
     
-    # height, width, depth = imageGrayScaled.shape
-    imageString = imageGrayScaled.tostring()
+    # height, width, depth = image.shape
+    imageString = image.tostring()
 
     direction = int(linecache.getline(r"./dataset/steer_log.txt", fileIndex))
-    direction = int(direction / 6)
+    # direction = int(direction / 6)
 
     example = tf.train.Example(features=tf.train.Features(feature={
         'image': _bytes_feature(imageString),
