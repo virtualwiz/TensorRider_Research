@@ -3,8 +3,8 @@ from skimage import io
 from matplotlib import pyplot as plt
 import tensorflow as tf
 
-import numpy
-numpy.set_printoptions(threshold=numpy.nan)
+# import numpy
+# numpy.set_printoptions(threshold=numpy.nan)
 
 record_iterator = tf.python_io.tf_record_iterator(path="record.tfrecords")
 
