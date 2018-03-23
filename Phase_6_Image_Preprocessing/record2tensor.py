@@ -43,7 +43,7 @@ images, labels = read_and_decode(filename_queue)
 init_op = tf.group(tf.global_variables_initializer(),
                    tf.local_variables_initializer())
 
-with tf.Session()  as sess:
+with tf.Session() as sess:
     sess.run(init_op)
 
     coord = tf.train.Coordinator()
@@ -53,12 +53,12 @@ with tf.Session()  as sess:
 
         img, lab = sess.run([images, labels])
 
-        # 檢查每個 batch 的圖片維度
         print(img.shape)
 
-        # 顯示每個 batch 的第一張圖
         io.imshow(img[0, :, :, 0])
         plt.show()
 
     coord.request_stop()
     coord.join(threads)
+
+
