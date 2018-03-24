@@ -19,12 +19,13 @@ for string_record in record_iterator:
 
     label = (example.features.feature['label'].int64_list.value[0])
 
-    image_1d = np.fromstring(imageString, dtype=np.uint8)
-    image = image_1d.reshape((120, 160, 3))
+    image = np.fromstring(imageString, dtype=np.uint8)
+    image = image.reshape((120, 160, 3))
     image = rgb2gray(image)
+    image = image.reshape((19200))
 
     print(image.shape)
 
-    io.imshow(image)
-    plt.show()
+    # io.imshow(image)
+    # plt.show()
 
