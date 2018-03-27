@@ -60,7 +60,7 @@ def Controller_ReadAndSend():
 
         if controller.get_button(4) + controller.get_button(5) == 2:
             print("Train!")
-            rider_local.speed = 25 #Emergency Stop
+            rider_local.speed = 25 #Training Speed
 
         if controller.get_button(8) == 1:
             s.close()
