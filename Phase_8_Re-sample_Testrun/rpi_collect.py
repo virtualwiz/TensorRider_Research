@@ -29,9 +29,9 @@ FRAME_FPS = 30
 bcnStatus = 0
 loggerStatus = False
 
-# camera = PiCamera()
-# camera.resolution = (FRAME_WIDTH, FRAME_HEIGHT)
-# camera.framerate = FRAME_FPS
+camera = PiCamera()
+camera.resolution = (FRAME_WIDTH, FRAME_HEIGHT)
+camera.framerate = FRAME_FPS
 
 io.setmode(io.BOARD)
 
@@ -152,27 +152,27 @@ def Beacon_Write():
         flashBeacon()
         sleep(BCN_INTERVAL)
 
-# def Logger():
-#     global loggerStatus
-#     global logText
-#     while True:
-#         if loggerStatus == True:
-#             setBeaconStatus(0)
-#             logFile = open('/mnt/pdisk/steer_log.txt', 'w')
-#             # for filename in camera.capture_continuous('/home/pi/img/{counter:06d}.jpg', use_video_port=True):
-#             for filename in camera.capture_continuous('/mnt/pdisk/{counter:06d}.jpg', use_video_port=True):
-#                 # print('Captured %s' % filename)
-#                 logFile.write(logText)
-#                 logFile.write("\r\n")
-#                 sleep(0.05)
-#                 if loggerStatus == False:
-#                     logFile.close( )
-#                     break
-#         sleep(0.1)
+def Logger():
+    global loggerStatus
+    global logText
+    while True:
+        if loggerStatus == True:
+            setBeaconStatus(0)
+            logFile = open('/mnt/pdisk/steer_log.txt', 'w')
+            # for filename in camera.capture_continuous('/home/pi/img/{counter:06d}.jpg', use_video_port=True):
+            for filename in camera.capture_continuous('/mnt/pdisk/{counter:06d}.jpg', use_video_port=True):
+                # print('Captured %s' % filename)
+                logFile.write(logText)
+                logFile.write("\r\n")
+                sleep(0.05)
+                if loggerStatus == False:
+                    logFile.close( )
+                    break
+        sleep(0.1)
 
 ControlThread = threading.Thread(target = Controller_ReceiveAndWrite)
 ControlThread.start()
 BeaconThread = threading.Thread(target = Beacon_Write)
 BeaconThread.start()
-# LoggerThread = threading.Thread(target = Logger)
-# LoggerThread.start()
+LoggerThread = threading.Thread(target = Logger)
+LoggerThread.start()
