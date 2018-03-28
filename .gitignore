@@ -2,3 +2,4 @@
 *.tfrecords
 steer_log.txt
 *.npz
+*/logs/*
